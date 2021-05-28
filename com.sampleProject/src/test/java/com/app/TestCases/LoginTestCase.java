@@ -2,6 +2,7 @@ package com.app.TestCases;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.Reporter;
@@ -40,18 +41,32 @@ public class LoginTestCase
         
         Reporter.log("verifyusername");
         report.log(LogStatus.INFO, "test username");
-        
+             
+      
         driver.findElement(By.name("pass")).sendKeys("admin");
         System.out.println("Enter password");
         
         Reporter.log("verifypassword");
         report.log(LogStatus.INFO, "tset password");
         
-        driver.findElement(By.name("btnSubmit")).click();
+      WebElement loginbutton = driver.findElement(By.name("btnSubmit"));
+      loginbutton.click();
         System.out.println("Click login button");
         
         Reporter.log("verify login button");
         report.log(LogStatus.INFO, "login button");
+        
+        if(loginbutton.isEnabled()) {
+        	loginbutton.click();
+        	report.log(LogStatus.PASS, "step performed");
+        }
+        else
+        {
+        	report.log(LogStatus.FAIL, "step failed");
+        }
+        
+        
+        
     }
     
     @AfterTest
